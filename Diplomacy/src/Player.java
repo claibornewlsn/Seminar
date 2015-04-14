@@ -19,13 +19,17 @@ public class Player {
 	
 	public Player(int val, int[][] board) {
 		playerValue = val;
+		System.out.println("Before board copy");
 		this.board = board;
+		System.out.println("After board copy");
 		makeOffense();
+		System.out.println("made offense");
 	}
 	
 	
 	// *** Offensive Strategy ***
 	private void makeOffense() {
+		int num = 0;
 		for (int r = 0; r < board.length; r++) {
 			for (int c = 0; c < board.length; c++) {
 				if (board[r][c] == playerValue) {
@@ -36,9 +40,12 @@ public class Player {
 					dotR.add(r);
 					dotC.add(c);
 				}
+				System.out.println("In lop time: " + num);
 			}
 		}
+		System.out.println("out of for loops");
 		findClosestDot();
+		System.out.println("found closest dot");
 	}
 	
 	private void findClosestDot() {
@@ -51,10 +58,11 @@ public class Player {
 				closestDotC = dotC.poll();
 				closestDotDis = dotDistance(closestDotR,closestDotC);
 			}
-			else {
+			else{
 				dotR.poll();
 				dotC.poll();
 			}
+
 		}
 	}
 	

@@ -18,21 +18,43 @@ public class Board {
 		int row = (int) (Math.random() * SIZE);
 		int col = (int) (Math.random() * SIZE);
 		addDot(row, col);
+		int row2 = (int) (Math.random() * 5);
+		int col2 = (int) (Math.random() * 5);
+		while (row == row2 && col == col2) {
+			row2 = (int) (Math.random() * 5);
+			col2 = (int) (Math.random() * 5);
+		}
+
 		int row2 = (int) (Math.random() * SIZE);
 		int col2 = (int) (Math.random() * SIZE);
 		
+
 		addDot(row2, col2);
 		
 		// add players randomly
 		row = (int) (Math.random() * SIZE);
 		col = (int) (Math.random() * SIZE);
 		addPlayer(row,col,PLAYER1);
+
+		row2 = (int) (Math.random() * 5);
+		col2 = (int) (Math.random() * 5);
+
+		while (row == row2 && col == col2) {
+			row2 = (int) (Math.random() * 5);
+			col2 = (int) (Math.random() * 5);
+		}
+
 		row2 = (int) (Math.random() * SIZE);
 		col2 = (int) (Math.random() * SIZE);
 		
+
+
 		addPlayer(row2,col2,PLAYER2);
+
 		p1 = new Player(PLAYER1, board);
+
 		p2 = new Player(PLAYER2, board);
+
 		
 		
 	}
