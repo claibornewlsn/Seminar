@@ -51,6 +51,10 @@ public class Player {
 				closestDotC = dotC.poll();
 				closestDotDis = dotDistance(closestDotR,closestDotC);
 			}
+			else {
+				dotR.poll();
+				dotC.poll();
+			}
 		}
 	}
 	
