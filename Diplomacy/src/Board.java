@@ -1,8 +1,10 @@
 // COLE OTTO IS THE BESTEST
 public class Board {
-	private static final int SIZE = 6;
+	private static final int SIZE = 10;
 	private final int PLAYER1 = 2;
 	private final int PLAYER2 = 3;
+	static Player p1;
+	static Player p2;
 	
 	private static int[][] board = new int[SIZE][SIZE];
 	
@@ -34,6 +36,8 @@ public class Board {
 			col2 = (int) (Math.random() * 5);
 		}
 		addPlayer(row2,col2,PLAYER2);
+		p1 = new Player(PLAYER1, board);
+		p2 = new Player(PLAYER2, board);
 		
 		
 	}
@@ -47,8 +51,11 @@ public class Board {
 	private boolean isPlayer(int r, int c) {
 		return (board[r][c] != 0 && !isDot(r,c));
 	}
-	private void addPlayer(int r, int c, int num) {
+	public void addPlayer(int r, int c, int num) {
 		board[r][c] = num;
+	}
+	public void removePlayer(int r, int c) {
+		board[r][c] = 0;
 	}
 	
 	
@@ -56,8 +63,12 @@ public class Board {
 		return board;
 	}
 	
-	public static void main(String args[]) {
-		Board b = new Board();
+	public static void move(Player p) {
+		p.movePlayerOff();
+		board = p.getBoard();
+	}
+	
+	private static void print(Board b) {
 		for (int r = 0; r < SIZE; r++) {
 			System.out.println();
 			for (int c = 0; c < SIZE; c++) {
@@ -65,4 +76,21 @@ public class Board {
 			}
 		}
 	}
+	
+	public static void main(String args[]) {
+		Board b = new Board();
+		print(b);
+		move(p1);
+		move(p2);
+		System.out.println();
+		print(b);move(p1);
+		move(p2);
+		System.out.println();
+		print(b);
+		move(p1);
+		move(p2);
+		System.out.println();
+		print(b);
+	}
+	
 }

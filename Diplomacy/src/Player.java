@@ -1,3 +1,5 @@
+import java.awt.List;
+import java.util.LinkedList;
 import java.util.Queue;
 
 
@@ -11,8 +13,8 @@ public class Player {
 	private int closestDotR;
 	private int closestDotC;
 	private int closestDotDis;
-	private Queue<Integer> dotR;
-	private Queue<Integer> dotC;
+	private Queue<Integer> dotR = new LinkedList<Integer>();
+	private Queue<Integer> dotC = new LinkedList<Integer>();
 	
 	
 	public Player(int val, int[][] board) {
@@ -60,16 +62,28 @@ public class Player {
 	// ***************************************
 	
 	private void moveUp() {
-		
+		board[playerR][playerC] = 0;
+		playerR--;
+		board[playerR][playerC] = playerValue;
 	}
 	private void moveDown() {
-		
+		board[playerR][playerC] = 0;
+		playerR++;
+		board[playerR][playerC] = playerValue;
 	}
 	private void moveLeft() {
-		
+		board[playerR][playerC] = 0;
+		playerC--;
+		board[playerR][playerC] = playerValue;
 	}
 	private void moveRight() {
-		
+		board[playerR][playerC] = 0;
+		playerC++;
+		board[playerR][playerC] = playerValue;
+	}
+	
+	public int[][] getBoard() {
+		return board;
 	}
 	
 	// moves the player using the offensive strategy
@@ -94,6 +108,35 @@ public class Player {
 			}
 			else {
 				moveUp();
+			}
+		}
+		else if (closestDotR > playerR) {
+			if (closestDotC < playerC) {
+				if (tie == 0) {
+					moveDown();
+				}
+				else {
+					moveLeft();
+				}
+			}
+			else if (closestDotC > playerC) {
+				if (tie == 0) {
+					moveDown();
+				}
+				else {
+					moveRight();
+				}
+			}
+			else {
+				moveDown();
+			}
+		}
+		else if (closestDotR == playerR) {
+			if (closestDotC < playerC) {
+				moveLeft();
+			}
+			if (closestDotC > playerC) {
+				moveRight();
 			}
 		}
 		
