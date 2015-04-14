@@ -61,7 +61,8 @@ public class Player {
 	}
 	// ***************************************
 	
-	private void moveUp() {
+	
+	private void moveUp() {	//row--, col same
 		board[playerR][playerC] = 0;
 		playerR--;
 		board[playerR][playerC] = playerValue;
