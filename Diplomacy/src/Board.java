@@ -76,13 +76,17 @@ public class Board {
 	}
 	
 	
-	public int[][] getBoard() {
+	public static int[][] getBoard() {
 		return board;
 	}
 	
 	public static void move(Player p) {
 		p.movePlayerOff();
 		board = p.getBoard();
+	}
+	
+	public static int getSize(){
+		return SIZE;
 	}
 	
 	private static void print(Board b) {

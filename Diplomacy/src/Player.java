@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.List;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -7,6 +8,7 @@ public class Player {
 
 	private int playerR;
 	private int playerC;
+	private Color playerColor;
 	private int playerValue;
 	private int[][] board;
 	// *** Offensive Strategy ***
@@ -17,13 +19,14 @@ public class Player {
 	private Queue<Integer> dotC = new LinkedList<Integer>();
 	
 	
-	public Player(int val, int[][] board) {
+	public Player(int val, Color color) {
 		playerValue = val;
-		System.out.println("Before board copy");
-		this.board = board;
-		System.out.println("After board copy");
+		int r = (int)(Math.random() * Board.getSize());
+		playerR = r;
+		int c = (int)(Math.random() * Board.getSize());
+		playerC = c;
+		playerColor = color;
 		makeOffense();
-		System.out.println("made offense");
 	}
 	
 	
@@ -43,9 +46,7 @@ public class Player {
 				System.out.println("In lop time: " + num);
 			}
 		}
-		System.out.println("out of for loops");
 		findClosestDot();
-		System.out.println("found closest dot");
 	}
 	
 	private void findClosestDot() {
