@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 // COLE OTTO IS THE BESTEST
 public class Board {
 	private static final int SIZE = 10;
@@ -25,10 +27,6 @@ public class Board {
 			col2 = (int) (Math.random() * 5);
 		}
 
-		int row2 = (int) (Math.random() * SIZE);
-		int col2 = (int) (Math.random() * SIZE);
-		
-
 		addDot(row2, col2);
 		
 		// add players randomly
@@ -51,9 +49,8 @@ public class Board {
 
 		addPlayer(row2,col2,PLAYER2);
 
-		p1 = new Player(PLAYER1, board);
-
-		p2 = new Player(PLAYER2, board);
+		p1 = new Player(PLAYER1, Color.RED);
+		p2 = new Player(PLAYER2, Color.BLUE);
 
 		
 		

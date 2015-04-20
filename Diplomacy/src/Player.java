@@ -156,5 +156,9 @@ public class Player {
 		
 	}
 	
+	public Color getColor(){
+		return playerColor;
+	}
+	
 	
 }
