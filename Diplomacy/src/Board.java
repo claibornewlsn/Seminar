@@ -8,12 +8,12 @@ public class Board {
 	static Player p1;
 	static Player p2;
 	
-	private static int[][] board = new int[SIZE][SIZE];
+	private static Color[][] board = new Color[SIZE][SIZE];
 	
 	public Board(){
 		for(int c=0; c<board.length; c++){
 			for(int r=0; r<board.length; r++){
-				board[r][c] = 0;
+				board[r][c] = Color.WHITE;
 			}
 		}
 		// add dots randomly
@@ -44,9 +44,6 @@ public class Board {
 
 		row2 = (int) (Math.random() * SIZE);
 		col2 = (int) (Math.random() * SIZE);
-		
-
-
 		addPlayer(row2,col2,PLAYER2);
 
 		p1 = new Player(PLAYER1, Color.RED);
@@ -56,24 +53,29 @@ public class Board {
 		
 	}
 	private void addDot(int r, int c){
-		board[r][c] = 1;
+		board[r][c] = Color.BLACK;
 		//dots are represented by 1
 	}
 	private boolean isDot(int r, int c) {
-		return board[r][c] == 1;
+		return board[r][c] == Color.BLACK;
 	}
 	private boolean isPlayer(int r, int c) {
-		return (board[r][c] != 0 && !isDot(r,c));
+		return (board[r][c] != Color.WHITE && !isDot(r,c));
 	}
 	public void addPlayer(int r, int c, int num) {
-		board[r][c] = num;
+		if(PLAYER1 == num){
+			board[r][c] = p1.getColor();
+		}
+		else if (PLAYER2 == num){
+			board[r][c] = p2.getColor();
+		}
 	}
 	public void removePlayer(int r, int c) {
-		board[r][c] = 0;
+		board[r][c] = Color.WHITE;
 	}
 	
 	
-	public static int[][] getBoard() {
+	public static Color[][] getBoard() {
 		return board;
 	}
 	

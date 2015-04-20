@@ -96,7 +96,7 @@ public class Player {
 		board[playerR][playerC] = playerValue;
 	}
 	
-	public int[][] getBoard() {
+	public Color[][] getBoard() {
 		return board;
 	}
 	
@@ -152,13 +152,9 @@ public class Player {
 			if (closestDotC > playerC) {
 				moveRight();
 			}
-		}
-		
+		}	
 	}
-	
 	public Color getColor(){
 		return playerColor;
 	}
-	
-	
 }
