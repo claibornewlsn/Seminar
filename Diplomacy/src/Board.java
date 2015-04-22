@@ -1,6 +1,10 @@
 import java.awt.Color;
 
 // COLE OTTO IS THE BESTEST
+//strategy and player movement goes here (board)
+//create new class for movement
+//canvas takes the board and creates the color representation, checks if controls are right
+//GUI presents the life canvas (gets run)
 public class Board {
 	private static final int SIZE = 10;
 	private final int PLAYER1 = 2;
