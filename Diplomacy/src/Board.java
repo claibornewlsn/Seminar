@@ -9,15 +9,15 @@ public class Board {
 	private static final int SIZE = 10;
 	private final int PLAYER1 = 2;
 	private final int PLAYER2 = 3;
-	static Player p1;
-	static Player p2;
+	Player p1;
+	Player p2;
 	
-	private static Color[][] board = new Color[SIZE][SIZE];
+	private int[][] board = new int[SIZE][SIZE];
 	
 	public Board(){
 		for(int c=0; c<board.length; c++){
 			for(int r=0; r<board.length; r++){
-				board[r][c] = Color.WHITE;
+				board[r][c] = 0;
 			}
 		}
 		// add dots randomly
@@ -36,61 +36,58 @@ public class Board {
 		// add players randomly
 		row = (int) (Math.random() * SIZE);
 		col = (int) (Math.random() * SIZE);
-		addPlayer(row,col,PLAYER1);
+		p1 = new Player(2, row, col);
+		board[row][col] = PLAYER1;
 
-		row2 = (int) (Math.random() * 5);
-		col2 = (int) (Math.random() * 5);
-
-		while (row == row2 && col == col2) {
-			row2 = (int) (Math.random() * 5);
-			col2 = (int) (Math.random() * 5);
-		}
 
 		row2 = (int) (Math.random() * SIZE);
 		col2 = (int) (Math.random() * SIZE);
-		addPlayer(row2,col2,PLAYER2);
 
-		p1 = new Player(PLAYER1, Color.RED);
-		p2 = new Player(PLAYER2, Color.BLUE);
+		while (row == row2 && col == col2) {
+			row2 = (int) (Math.random() * SIZE);
+			col2 = (int) (Math.random() * SIZE);
+		}
 
-		
-		
+		p2 = new Player(3, row2, col2);
+		board[row2][col2] = PLAYER2;
+	
 	}
 	private void addDot(int r, int c){
-		board[r][c] = Color.BLACK;
+		board[r][c] = 1;
 		//dots are represented by 1
 	}
 	private boolean isDot(int r, int c) {
-		return board[r][c] == Color.BLACK;
+		return board[r][c] == 1;
 	}
 	private boolean isPlayer(int r, int c) {
-		return (board[r][c] != Color.WHITE && !isDot(r,c));
+		return (board[r][c] != 0 && !isDot(r,c));
 	}
-	public void addPlayer(int r, int c, int num) {
-		if(PLAYER1 == num){
-			board[r][c] = p1.getColor();
-		}
-		else if (PLAYER2 == num){
-			board[r][c] = p2.getColor();
-		}
-	}
+//	public void addPlayer(int r, int c, int num) {
+//		if(PLAYER1 == num){
+//			board[r][c] = p1.getColor();
+//		}
+//		else if (PLAYER2 == num){
+//			board[r][c] = p2.getColor();
+//		}
+//	}
 	public void removePlayer(int r, int c) {
-		board[r][c] = Color.WHITE;
+		board[r][c] = 0;
 	}
 	
 	
-	public static Color[][] getBoard() {
+	public int[][] getBoard() {
 		return board;
 	}
 	
-	public static void move(Player p) {
+	public void move(Player p) {
 		p.movePlayerOff();
-		board = p.getBoard();
 	}
 	
 	public static int getSize(){
 		return SIZE;
 	}
+	
+	
 	
 	private static void print(Board b) {
 		for (int r = 0; r < SIZE; r++) {
@@ -101,15 +98,15 @@ public class Board {
 		}
 	}
 	
-	public static void main(String args[]) {
-		Board b = new Board();
-		for (int i = 0; i < 5; i++) {
-			move(p1);
-			move(p2);
-			System.out.println();
-			print(b);
-		}
-		
-	}
+//	public static void main(String args[]) {
+//		Board b = new Board();
+//		for (int i = 0; i < 5; i++) {
+//			move(p1);
+//			move(p2);
+//			System.out.println();
+//			print(b);
+//		}
+//		
+//	}
 	
 }

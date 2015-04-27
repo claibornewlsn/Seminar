@@ -10,7 +10,7 @@ public class Player {
 	private int playerC;
 	private Color playerColor;
 	private int playerValue;
-	private int[][] board;
+	//private int[][] board;
 	// *** Offensive Strategy ***
 	private int closestDotR;
 	private int closestDotC;
@@ -19,13 +19,11 @@ public class Player {
 	private Queue<Integer> dotC = new LinkedList<Integer>();
 	
 	
-	public Player(int val, Color color) {
+	public Player(int val, int row, int col) {
 		playerValue = val;
-		int r = (int)(Math.random() * Board.getSize());
-		playerR = r;
-		int c = (int)(Math.random() * Board.getSize());
-		playerC = c;
-		playerColor = color;
+		playerR = row;
+		playerC = col;
+
 		makeOffense();
 	}
 	
@@ -43,7 +41,6 @@ public class Player {
 					dotR.add(r);
 					dotC.add(c);
 				}
-				System.out.println("In lop time: " + num);
 			}
 		}
 		findClosestDot();
@@ -156,5 +153,8 @@ public class Player {
 	}
 	public Color getColor(){
 		return playerColor;
+	}
+	public int getVal(){
+		return playerValue;
 	}
 }
