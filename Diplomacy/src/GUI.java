@@ -53,7 +53,7 @@ public class GUI {
 		
 	}
 	
-	private void costructGUI(){
+	private void constructGUI(){
 		JFrame guiFrame = new JFrame();
 		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guiFrame.setTitle("Diplomacy");
