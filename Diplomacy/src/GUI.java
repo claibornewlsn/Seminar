@@ -28,7 +28,7 @@ public class GUI extends JPanel{
 	//private Player p2;
 	private Board b;
 	private int size = Board.getSize();
-	private int cellSize = 150;
+	private int cellSize = 50;
 	private int cellUnderMouse;
 	
 	public GUI() {
@@ -59,25 +59,25 @@ public class GUI extends JPanel{
 	
 	public void paint (Graphics g){
 		super.paintComponent(g);
-		int size = b.getSize();
+		int size = Board.getSize();
 		int w = size;
 		int h = size;
-		g.setColor(Color.WHITE);
+		g.setColor(Color.BLACK);
 		for (int x = 1; x < size; x++){
-			g.drawLine(x * size-1, 0, x * size - 1, size * size - 1);
+			g.drawLine(x * cellSize-1, 0, x * cellSize - 1, cellSize * cellSize - 1);
 		}
 		for (int y=1; y<size; y++){
-			g.drawLine(0, y * size-1, size * size-1, y * size-1);
+			g.drawLine(0, y * cellSize-1, cellSize * cellSize-1, y * cellSize-1);
 		}
 		for (int r=0; r<size; r++){
 			for (int c=0; c<size; c++){
 				if(b.get(r, c) == 1){
 					g.setColor(Color.BLACK);
-					g.fillRect(r * size, c*size, size-1, size-1);
+					g.fillRect(r * cellSize, c*cellSize, cellSize-1, cellSize-1);
 				}
 				else if(b.get(r,c) == 0){
 					g.setColor(Color.WHITE);
-					g.fillRect(r*size,  c*size,  size-1, size-1);
+					g.fillRect(r*cellSize,  c*cellSize,  cellSize-1, cellSize-1);
 				}
 					
 			}
@@ -92,8 +92,7 @@ public class GUI extends JPanel{
 		try{
 			cellUnderMouse = b.get(x/cellSize, y/cellSize);
 		}
-		catch(java.lang.ArrayIndexOutOfBoundsException e){
-			
+		catch(java.lang.ArrayIndexOutOfBoundsException e){	
 		}
 	}
 	
@@ -103,7 +102,7 @@ public class GUI extends JPanel{
 		guiFrame.setVisible(true);
 		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guiFrame.setTitle("Diplomacy");
-		guiFrame.setSize(600, 450);
+		guiFrame.setSize(515, 530);
 		guiFrame.setLocationRelativeTo(null);
 
 		//GUI g = new GUI();
