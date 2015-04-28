@@ -52,6 +52,10 @@ public class Board {
 		board[row2][col2] = PLAYER2;
 	
 	}
+	public int get (int r, int c){
+		return board[r][c];
+	}
+	
 	private void addDot(int r, int c){
 		board[r][c] = 1;
 		//dots are represented by 1
@@ -82,6 +86,21 @@ public class Board {
 	public void move(Player p) {
 		p.movePlayerOff();
 	}
+	public void moveUp (Player p){
+		p.setRow(p.getRow()-1);
+	}
+	
+	public void moveDown (Player p){
+		p.setRow(p.getRow() +1);
+	}
+	
+	public void moveRight (Player p){
+		p.setCol(p.getCol() + 1);
+	}
+	
+	public void moveLeft (Player p){
+		p.setCol(p.getCol() -1);
+	}
 	
 	public static int getSize(){
 		return SIZE;
@@ -89,7 +108,7 @@ public class Board {
 	
 	
 	
-	private static void print(Board b) {
+	public void print(Board b) {
 		for (int r = 0; r < SIZE; r++) {
 			System.out.println();
 			for (int c = 0; c < SIZE; c++) {
@@ -98,15 +117,6 @@ public class Board {
 		}
 	}
 	
-//	public static void main(String args[]) {
-//		Board b = new Board();
-//		for (int i = 0; i < 5; i++) {
-//			move(p1);
-//			move(p2);
-//			System.out.println();
-//			print(b);
-//		}
-//		
-//	}
+
 	
 }
