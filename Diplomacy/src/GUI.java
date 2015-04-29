@@ -79,6 +79,14 @@ public class GUI extends JPanel{
 					g.setColor(Color.WHITE);
 					g.fillRect(r*cellSize,  c*cellSize,  cellSize-1, cellSize-1);
 				}
+				else if (b.get(r,  c) == 2){
+					g.setColor(Color.RED);
+					g.fillRect(r*cellSize,  c*cellSize,  cellSize-1, cellSize-1);
+				}
+				else if (b.get(r, c) == 3){
+					g.setColor(Color.BLUE);
+					g.fillRect(r*cellSize,  c*cellSize,  cellSize-1, cellSize-1);
+				}
 					
 			}
 		}
