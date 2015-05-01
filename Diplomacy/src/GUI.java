@@ -140,6 +140,7 @@ public class GUI extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		//move
+		b.move();
 		repaint();
 		
 	}

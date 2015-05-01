@@ -83,6 +83,19 @@ public class Board {
 		return board;
 	}
 	
+	public void move(){
+		//move for player1
+		int num = 0;
+		for (int r = 0; r < SIZE; r++) {
+			for (int c = 0; c < SIZE; c++) {
+				if (board[r][c] == 1) {
+					//dotR.add(r);
+					//dotC.add(c);
+				}
+			}
+			
+	}
+	
 	public void move(Player p) {
 		p.movePlayerOff();
 	}
