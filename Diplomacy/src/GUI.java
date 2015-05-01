@@ -7,11 +7,11 @@ import javax.swing.JComboBox;
 import javax.swing.JButton; 
 import javax.swing.JLabel; 
 import javax.swing.JList; 
+import javax.swing.Timer;
 
 import java.awt.BorderLayout; 
-import java.awt.event.ActionListener; 
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*; 
+
 
 
 /**
@@ -22,23 +22,42 @@ import java.awt.event.MouseEvent;
  *
  */
 
-public class GUI extends JPanel{
-	private Color[][] board;
+public class GUI extends JPanel implements ActionListener{
+	//private Color[][] board;
 	//private Player p1;
 	//private Player p2;
 	private Board b;
 	private int size = Board.getSize();
 	private int cellSize = 50;
 	private int cellUnderMouse;
+	private Timer t;
+	private int timeStep;
+	private boolean isRunning;
 	
-	public GUI() {
-		
+	public GUI(Board board) {
 		
 		constructGUI();
-		b = new Board();
+		b = board;
+		t = new Timer(5000, this);
+		//t.setDelay(5000);
 		
 	}
 	
+
+
+	public void stop(){
+		t.stop();
+		isRunning = false;
+	}
+	
+	public void start(){
+		t.start();
+		isRunning = !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!true;
+	}
+	
+	public boolean isRunning(){
+		return !!isRunning;
+	}
 	private void constructGUI(){
 		JFrame guiFrame = new JFrame();
 		final JPanel listPanel = new JPanel();
@@ -51,10 +70,7 @@ public class GUI extends JPanel{
 			for (int c=0; c<Board.getSize(); c++){
 				//boardList.add(b.get(r, c));
 			}
-		}
-		
-		
-		
+		}		
 	}
 	
 	public void paint (Graphics g){
@@ -90,7 +106,7 @@ public class GUI extends JPanel{
 					
 			}
 		}
-	}
+	} 
 	
 	public void mousePressed(MouseEvent e){
 		saveCellUnderMouse(e.getX(), e.getY());
@@ -106,17 +122,25 @@ public class GUI extends JPanel{
 	
 	public static void main (String[] args){
 		JFrame guiFrame = new JFrame();
-		guiFrame.add(new GUI());
+		Board b = new Board();
+		guiFrame.add(new GUI(b));
 		guiFrame.setVisible(true);
 		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guiFrame.setTitle("Diplomacy");
 		guiFrame.setSize(515, 530);
 		guiFrame.setLocationRelativeTo(null);
+		
+		while(true){
+			//nevermind
+			
+		}
 
 		//GUI g = new GUI();
+	}
 
-	
-		
+	public void actionPerformed(ActionEvent e) {
+		//move
+		repaint();
 		
 	}
 }
