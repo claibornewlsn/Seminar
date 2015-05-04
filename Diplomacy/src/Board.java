@@ -88,9 +88,9 @@ public class Board {
 		int num = 0;
 		for (int r = 0; r < SIZE; r++) {
 			for (int c = 0; c < SIZE; c++) {
+				
 				if (board[r][c] == 1) {
-					//dotR.add(r);
-					//dotC.add(c);
+					
 				}
 			}
 		}
@@ -118,6 +118,10 @@ public class Board {
 	
 	public static int getSize(){
 		return SIZE;
+	}
+	
+	public void setCell(int r, int c, int v){
+		board[r][c] = v;
 	}
 	
 	public void print(Board b) {

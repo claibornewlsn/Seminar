@@ -22,7 +22,7 @@ import java.awt.event.*;
  *
  */
 
-public class GUI extends JPanel implements ActionListener{
+public class GUI extends JPanel implements ActionListener, MouseListener, MouseMotionListener{
 	//private Color[][] board;
 	//private Player p1;
 	//private Player p2;
@@ -33,6 +33,7 @@ public class GUI extends JPanel implements ActionListener{
 	private Timer t;
 	private int timeStep;
 	private boolean isRunning;
+	private JButton next;
 	
 	public GUI(Board board) {
 		
@@ -40,7 +41,18 @@ public class GUI extends JPanel implements ActionListener{
 		b = board;
 		t = new Timer(5000, this);
 		//t.setDelay(5000);
-		
+		next = new JButton("Next");
+		next.setVisible(true);
+		next.addActionListener(
+				new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						b.move();
+						System.out.println("here");
+					}
+				}
+				);
+		this.add(next);
+		this.validate();
 	}
 	
 
@@ -58,6 +70,16 @@ public class GUI extends JPanel implements ActionListener{
 	public boolean isRunning(){
 		return !!isRunning;
 	}
+	
+	public void startStopButtonClicked() {
+		if ( isRunning() ) {
+			stop();
+		} 
+		else {
+		    start();
+		}
+	}
+	
 	private void constructGUI(){
 		JFrame guiFrame = new JFrame();
 		final JPanel listPanel = new JPanel();
@@ -107,9 +129,10 @@ public class GUI extends JPanel implements ActionListener{
 			}
 		}
 	} 
-	
+	 
 	public void mousePressed(MouseEvent e){
 		saveCellUnderMouse(e.getX(), e.getY());
+		System.out.println("Mouse at: " + e.getX() + " , " + e.getY());
 	}
 	
 	public void saveCellUnderMouse(int x, int y){
@@ -118,6 +141,56 @@ public class GUI extends JPanel implements ActionListener{
 		}
 		catch(java.lang.ArrayIndexOutOfBoundsException e){	
 		}
+	}
+	
+	
+
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("called it");
+		b.move();
+		repaint();
+		
+	}
+
+	public void draw(int x, int y){
+		try{
+			b.setCell(x / cellSize, y/cellSize, 1-cellUnderMouse);
+			repaint();
+		}
+		catch (java.lang.ArrayIndexOutOfBoundsException e){
+			//ignore
+		}
+		finally{
+			
+		}
+	}
+
+
+
+	public void mouseDragged(MouseEvent e) {
+		draw(e.getX(), e.getY());
+		
+	}
+	public void mouseMoved(MouseEvent e) {
+		//nothing
+		
+	}
+	public void mouseClicked(MouseEvent e) {
+		saveCellUnderMouse(e.getX(), e.getY());
+		System.out.println("called");
+		
+	}
+
+
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public static void main (String[] args){
@@ -130,18 +203,7 @@ public class GUI extends JPanel implements ActionListener{
 		guiFrame.setSize(515, 530);
 		guiFrame.setLocationRelativeTo(null);
 		
-		while(true){
-			//nevermind
-			
-		}
 
-		//GUI g = new GUI();
 	}
-
-	public void actionPerformed(ActionEvent e) {
-		//move
-		b.move();
-		repaint();
-		
-	}
+	
 }
