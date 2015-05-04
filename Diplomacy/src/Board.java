@@ -93,11 +93,12 @@ public class Board {
 					//dotC.add(c);
 				}
 			}
+		}
 			
 	}
 	
 	public void move(Player p) {
-		p.movePlayerOff();
+		//p.movePlayerOff();
 	}
 	public void moveUp (Player p){
 		p.setRow(p.getRow()-1);
@@ -119,8 +120,6 @@ public class Board {
 		return SIZE;
 	}
 	
-	
-	
 	public void print(Board b) {
 		for (int r = 0; r < SIZE; r++) {
 			System.out.println();
@@ -129,7 +128,6 @@ public class Board {
 			}
 		}
 	}
-	
 
 	
 }
