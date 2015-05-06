@@ -52,6 +52,7 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 				}
 				);
 		this.add(next);
+		
 		this.validate();
 	}
 	

@@ -71,10 +71,7 @@ public class Board {
 		return (board[r][c] != 0 && !isDot(r,c));
 	}
 
-	public void removePlayer(int r, int c) {
-		board[r][c] = 0;
-	}
-	
+
 	
 	public int[][] getBoard() {
 		return board;
@@ -84,19 +81,24 @@ public class Board {
 		int[] p1Temp = p1.moveOffense(board, SIZE);
 		//returns array in the form [rowValue][colValue}
 		
+		board[p1.getRow()][p1.getCol()] = 0;
 		p1.setRow(p1Temp[0]);
 		p1.setCol(p1Temp[1]);
+		board[p1.getRow()][p1.getCol()] = PLAYER1;
+		
 		//need to set the value in board
 		
-		
 		int[] p2Temp = p2.moveOffense(board, SIZE);
+		board[p2.getRow()][p2.getCol()] = 0;
 		p2.setRow(p2Temp[0]);
 		p2.setCol(p2Temp[1]);	
+		board[p2.getRow()][p2.getCol()] = PLAYER2;
 	}
 
 	
 
 	public void moveUp (Player p){
+		board[p.getRow()][p.getCol()] = 0;
 		p.setRow(p.getRow()-1);
 	}
 	

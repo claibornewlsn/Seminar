@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.List;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Queue;
 
 
@@ -17,8 +19,8 @@ public class Player {
 	private int closestDotC;
 
 	private int closestDotDis;
-	private Queue<Integer> dotR = new LinkedList<Integer>();
-	private Queue<Integer> dotC = new LinkedList<Integer>();
+	private ArrayList<Integer> dotR = new ArrayList<Integer>();
+	private ArrayList<Integer> dotC = new ArrayList<Integer>();
 	
 	
 
@@ -80,20 +82,72 @@ public class Player {
 		return temp;
 	}
 	
+	public void movePlayerOff() {
+	int tie = (int) (Math.random()*2);
+	if (closestDotR < playerR) {
+		if (closestDotC < playerC) {
+			if (tie == 0) {
+				moveUp();
+			}
+			else {
+				moveLeft();
+			}
+		}
+		else if (closestDotC > playerC) {
+			if (tie == 0) {
+				moveUp();
+			}
+			else {
+				moveRight();
+			}
+		}
+		else {
+			moveUp();
+		}
+	}
+	else if (closestDotR > playerR) {
+		if (closestDotC < playerC) {
+			if (tie == 0) {
+				moveDown();
+			}
+			else {
+				moveLeft();
+			}
+		}
+		else if (closestDotC > playerC) {
+			if (tie == 0) {
+				moveDown();
+			}
+			else {
+				moveRight();
+			}
+		}
+		else {
+			moveDown();
+		}
+	}
+	else if (closestDotR == playerR) {
+		if (closestDotC < playerC) {
+			moveLeft();
+		}
+		if (closestDotC > playerC) {
+			moveRight();
+		}
+	}	
+}
+	
 	private void determineDistances(){
-		closestDotR = dotR.remove();
-		closestDotC = dotC.remove();
+		closestDotR = dotR.get(0);
+		closestDotC = dotC.get(0);
 		closestDotDis = dotDistance(closestDotR,closestDotC);
-		while (!dotR.isEmpty() || !dotC.isEmpty()) {
-			if (closestDotDis > dotDistance(dotR.peek(),dotC.peek())) {
-				closestDotR = dotR.poll();
-				closestDotC = dotC.poll();
-				closestDotDis = dotDistance(closestDotR,closestDotC);
+		while (!dotR.isEmpty()){
+			if(closestDotDis > dotDistance(dotR.get(0), dotC.get(0))){
+				closestDotR = dotR.get(0);
+				closestDotC = dotC.get(0);
 			}
-			else{
-				dotR.poll();
-				dotC.poll();
-			}
+			dotR.remove(0);
+			dotC.remove(0);
+				
 		}
 		System.out.println("completed 'determineDistances'");
 		
@@ -149,27 +203,27 @@ public class Player {
 	// ***************************************
 	//PLAYERS SHOULD ALSO MOVE IN THE BOARD CLASS
 	
-//	private void moveUp() {	//row--, col same
-//		board[playerR][playerC] = 0;
-//		playerR--;
-//		board[playerR][playerC] = playerValue;
-//	}
-//	private void moveDown() {
-//		board[playerR][playerC] = 0;
-//		playerR++;
-//		board[playerR][playerC] = playerValue;
-//	}
-//	private void moveLeft() {
-//		board[playerR][playerC] = 0;
-//		playerC--;
-//		board[playerR][playerC] = playerValue;
-//	}
-//	private void moveRight() {
-//		board[playerR][playerC] = 0;
-//		playerC++;
-//		board[playerR][playerC] = playerValue;
-//	}
-//	
+	private void moveUp() {	//row--, col same
+		board[playerR][playerC] = 0;
+		playerR--;
+		board[playerR][playerC] = playerValue;
+	}
+	private void moveDown() {
+		board[playerR][playerC] = 0;
+		playerR++;
+		board[playerR][playerC] = playerValue;
+	}
+	private void moveLeft() {
+		board[playerR][playerC] = 0;
+		playerC--;
+		board[playerR][playerC] = playerValue;
+	}
+	private void moveRight() {
+		board[playerR][playerC] = 0;
+		playerC++;
+		board[playerR][playerC] = playerValue;
+	}
+	
 //	public Color[][] getBoard() {
 //		return board;
 //	}
