@@ -17,8 +17,10 @@ public class Player {
 	private int closestDotC;
 
 	private int closestDotDis;
-	private Queue<Integer> closestRow = new LinkedList<Integer>();
-	private Queue<Integer> closestCol = new LinkedList<Integer>();
+	private Queue<Integer> dotR = new LinkedList<Integer>();
+	private Queue<Integer> dotC = new LinkedList<Integer>();
+	
+	
 
 	
 	
@@ -50,6 +52,57 @@ public class Player {
 	}
 	public void setCol(int c){
 		playerC = c;
+	}
+	
+	/**
+	 * This method returns an array representing the row and col values.  The array should be in
+	 * the form [rowValue][colValue]
+	 * @param board
+	 * @param SIZE
+	 * @return
+	 */
+	public int[] moveOffense(int[][] board, int SIZE){
+		for(int r = 0; r<SIZE; r++){
+			for (int c = 0; c < SIZE; c++){
+				if(board[r][c] == 1){
+					dotR.add(r);
+					System.out.println("dot R: " + dotR.toString());
+					dotC.add(c);
+					System.out.println("Dot C: " + dotC.toString());
+				}
+			}
+		}
+		//set the closest R and C values:
+		determineDistances();
+		int[] temp = new int[2];
+		temp[0] = closestDotR;
+		temp[1] = closestDotC;
+		return temp;
+	}
+	
+	private void determineDistances(){
+		closestDotR = dotR.remove();
+		closestDotC = dotC.remove();
+		closestDotDis = dotDistance(closestDotR,closestDotC);
+		while (!dotR.isEmpty() || !dotC.isEmpty()) {
+			if (closestDotDis > dotDistance(dotR.peek(),dotC.peek())) {
+				closestDotR = dotR.poll();
+				closestDotC = dotC.poll();
+				closestDotDis = dotDistance(closestDotR,closestDotC);
+			}
+			else{
+				dotR.poll();
+				dotC.poll();
+			}
+		}
+		System.out.println("completed 'determineDistances'");
+		
+	}
+	
+	private int dotDistance(int r, int c){
+		int ans = Math.abs(playerR-r);
+		ans += Math.abs(playerC-c);
+		return ans;
 	}
 	
 	// *** Offensive Strategy ***

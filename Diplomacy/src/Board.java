@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.LinkedList;
+import java.util.Queue;
 
 // COLE OTTO IS THE BESTEST
 //strategy and player movement goes here (board)
@@ -11,6 +13,8 @@ public class Board {
 	private final int PLAYER2 = 3;
 	Player p1;
 	Player p2;
+	//for strategy:
+	
 	
 	private int[][] board = new int[SIZE][SIZE];
 	
@@ -66,14 +70,7 @@ public class Board {
 	private boolean isPlayer(int r, int c) {
 		return (board[r][c] != 0 && !isDot(r,c));
 	}
-//	public void addPlayer(int r, int c, int num) {
-//		if(PLAYER1 == num){
-//			board[r][c] = p1.getColor();
-//		}
-//		else if (PLAYER2 == num){
-//			board[r][c] = p2.getColor();
-//		}
-//	}
+
 	public void removePlayer(int r, int c) {
 		board[r][c] = 0;
 	}
@@ -84,22 +81,21 @@ public class Board {
 	}
 	
 	public void move(){
-		//move for player1
-		int num = 0;
-		for (int r = 0; r < SIZE; r++) {
-			for (int c = 0; c < SIZE; c++) {
-				
-				if (board[r][c] == 1) {
-					
-				}
-			}
-		}
-			
+		int[] p1Temp = p1.moveOffense(board, SIZE);
+		//returns array in the form [rowValue][colValue}
+		
+		p1.setRow(p1Temp[0]);
+		p1.setCol(p1Temp[1]);
+		//need to set the value in board
+		
+		
+		int[] p2Temp = p2.moveOffense(board, SIZE);
+		p2.setRow(p2Temp[0]);
+		p2.setCol(p2Temp[1]);	
 	}
+
 	
-	public void move(Player p) {
-		//p.movePlayerOff();
-	}
+
 	public void moveUp (Player p){
 		p.setRow(p.getRow()-1);
 	}
