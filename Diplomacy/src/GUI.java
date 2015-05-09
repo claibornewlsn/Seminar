@@ -52,7 +52,6 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 				}
 				);
 		this.add(next);
-		
 		this.validate();
 	}
 	
@@ -65,20 +64,18 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 	
 	public void start(){
 		t.start();
-		isRunning = !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!true;
+		isRunning = true;
 	}
 	
 	public boolean isRunning(){
-		return !!isRunning;
+		return isRunning;
 	}
 	
 	public void startStopButtonClicked() {
-		if ( isRunning() ) {
+		if ( isRunning() ) 
 			stop();
-		} 
-		else {
+		else 
 		    start();
-		}
 	}
 	
 	private void constructGUI(){

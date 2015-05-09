@@ -68,9 +68,8 @@ public class Player {
 			for (int c = 0; c < SIZE; c++){
 				if(board[r][c] == 1){
 					dotR.add(r);
-					System.out.println("dot R: " + dotR.toString());
 					dotC.add(c);
-					System.out.println("Dot C: " + dotC.toString());
+					
 				}
 			}
 		}
@@ -83,62 +82,51 @@ public class Player {
 	}
 	
 	public void movePlayerOff() {
-	int tie = (int) (Math.random()*2);
-	if (closestDotR < playerR) {
-		if (closestDotC < playerC) {
-			if (tie == 0) {
-				moveUp();
-			}
-			else {
-				moveLeft();
-			}
-		}
-		else if (closestDotC > playerC) {
-			if (tie == 0) {
-				moveUp();
-			}
-			else {
-				moveRight();
-			}
-		}
-		else {
-			moveUp();
-		}
-	}
-	else if (closestDotR > playerR) {
-		if (closestDotC < playerC) {
-			if (tie == 0) {
-				moveDown();
-			}
-			else {
-				moveLeft();
-			}
-		}
-		else if (closestDotC > playerC) {
-			if (tie == 0) {
-				moveDown();
-			}
-			else {
-				moveRight();
-			}
-		}
-		else {
-			moveDown();
-		}
-	}
-	else if (closestDotR == playerR) {
-		if (closestDotC < playerC) {
-			moveLeft();
-		}
-		if (closestDotC > playerC) {
-			moveRight();
-		}
-	}	
-}
+        int tie = (int) (Math.random()*2);
+        if (closestDotR < playerR) {
+               if (closestDotC < playerC) {
+                     if (tie == 0) 
+                            playerR--;
+                     else 
+                            playerC--;
+               }
+               else if (closestDotC > playerC) {
+                     if (tie == 0) 
+                            playerR--;
+                     else 
+                            playerC++;
+               }
+               else
+                     playerR--;
+        }
+        else if (closestDotR > playerR) {
+               if (closestDotC < playerC) {
+                     if (tie == 0) 
+                            playerR++;
+                     else 
+                            playerC--;
+               }
+               else if (closestDotC > playerC) {
+                     if (tie == 0) 
+                            playerR++;
+                     else 
+                            playerC++;
+               }
+               else 
+                     playerR++;
+        }
+        else if (closestDotR == playerR) {
+               if (closestDotC < playerC) {
+                     playerC--;
+               }
+               if (closestDotC > playerC) {
+                     playerC++;
+               }
+        }      
+ }
+
 	
 	private void determineDistances(){
-		closestDotR = dotR.get(0);
-		closestDotC = dotC.get(0);
 		closestDotDis = dotDistance(closestDotR,closestDotC);
 		while (!dotR.isEmpty()){
 			if(closestDotDis > dotDistance(dotR.get(0), dotC.get(0))){
@@ -146,11 +134,8 @@ public class Player {
 				closestDotC = dotC.get(0);
 			}
 			dotR.remove(0);
-			dotC.remove(0);
-				
+			dotC.remove(0);	
 		}
-		System.out.println("completed 'determineDistances'");
-		
 	}
 	
 	private int dotDistance(int r, int c){
@@ -203,30 +188,9 @@ public class Player {
 	// ***************************************
 	//PLAYERS SHOULD ALSO MOVE IN THE BOARD CLASS
 	
-	private void moveUp() {	//row--, col same
-		board[playerR][playerC] = 0;
-		playerR--;
-		board[playerR][playerC] = playerValue;
-	}
-	private void moveDown() {
-		board[playerR][playerC] = 0;
-		playerR++;
-		board[playerR][playerC] = playerValue;
-	}
-	private void moveLeft() {
-		board[playerR][playerC] = 0;
-		playerC--;
-		board[playerR][playerC] = playerValue;
-	}
-	private void moveRight() {
-		board[playerR][playerC] = 0;
-		playerC++;
-		board[playerR][playerC] = playerValue;
-	}
+
 	
-//	public Color[][] getBoard() {
-//		return board;
-//	}
+
 	
 	// moves the player using the offensive strategy
 //	public void movePlayerOff() {
