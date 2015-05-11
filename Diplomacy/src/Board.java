@@ -99,6 +99,18 @@ public class Board {
 	}
 	
 	public void move(){
+		
+		System.out.println(dots.toString());
+		
+		for(Dot d : dots){
+			if(d.getPlayer() == PLAYER1){
+				p1.changeClosestDotLoc(dots);
+			}
+			else if(d.getPlayer() == PLAYER2){
+				p2.changeClosestDotLoc(dots);
+			}
+		}
+		
 		int[] p1Temp = p1.moveOffense(board, SIZE);
 		//returns array in the form [rowValue][colValue}
 		
@@ -122,6 +134,13 @@ public class Board {
 			}
 		}
 		
+	}
+	
+	public void replaceDots(){
+		for(Dot d : dots){
+			if(board[d.getRow()][d.getCol()] == 0)
+				board[d.getRow()][d.getCol()] = 1;
+		}
 	}
 
 	

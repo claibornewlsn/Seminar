@@ -82,7 +82,7 @@ public class Player {
 	}
 	
 	public void movePlayerOff() {
-        int tie = (int) (Math.random()*2);
+	    int tie = (int) (Math.random()*2);
         if (closestDotR < playerR) {
                if (closestDotC < playerC) {
                      if (tie == 0) 
@@ -129,6 +129,8 @@ public class Player {
 	private void determineDistances(){
 		closestDotDis = dotDistance(closestDotR,closestDotC);
 		while (!dotR.isEmpty()){
+			//this should be changed such that the closestDotDis is changed when the player is on a dot it owns
+			
 			if(closestDotDis > dotDistance(dotR.get(0), dotC.get(0))){
 				closestDotR = dotR.get(0);
 				closestDotC = dotC.get(0);
@@ -143,6 +145,35 @@ public class Player {
 		ans += Math.abs(playerC-c);
 		return ans;
 	}
+	
+	public void changeClosestDotLoc(ArrayList<Dot> dt){
+		//this is removing elements from the original dot list and needs to be changed.
+		ArrayList<Dot> temp = new ArrayList<Dot>();
+		for(Dot d : dt){
+			temp.add(d);
+		}
+		for(Dot d : temp){
+			if(d.getPlayer() == playerValue)
+				temp.remove(d);
+		}
+		if(!temp.isEmpty()){
+			closestDotR = temp.get(0).getRow();
+			closestDotC = temp.get(0).getCol();
+			for(Dot d : temp){
+				if(closestDotR > dotDistance(d.getRow(), d.getCol())){
+					closestDotR = d.getRow();
+					closestDotC = d.getCol();
+				}
+			}
+			
+		}
+		else{
+			//if the player owns all the dots, then go to the spot (0,0)
+			closestDotR = 0;
+			closestDotC = 0;
+		}
+	}
+	
 	
 	// *** Offensive Strategy ***
 //	private void makeOffense() {

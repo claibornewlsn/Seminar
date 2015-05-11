@@ -47,6 +47,7 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
 						b.move();
+						b.replaceDots();
 						repaint();
 					}
 				}
