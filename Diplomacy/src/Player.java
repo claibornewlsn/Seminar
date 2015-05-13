@@ -81,49 +81,20 @@ public class Player {
 		return temp;
 	}
 	
-	public void movePlayerOff() {
-	    int tie = (int) (Math.random()*2);
-        if (closestDotR < playerR) {
-               if (closestDotC < playerC) {
-                     if (tie == 0) 
-                            playerR--;
-                     else 
-                            playerC--;
-               }
-               else if (closestDotC > playerC) {
-                     if (tie == 0) 
-                            playerR--;
-                     else 
-                            playerC++;
-               }
-               else
-                     playerR--;
+	public void determineOffOrDef(Player p) {
+        if (dotDistance(p.closestDotR,p.closestDotC) < p.dotDistance(p.closestDotR,p.closestDotC)) {
+               movePlayer(p.closestDotR,p.closestDotC);
+               System.out.println("Devensive");
         }
-        else if (closestDotR > playerR) {
-               if (closestDotC < playerC) {
-                     if (tie == 0) 
-                            playerR++;
-                     else 
-                            playerC--;
-               }
-               else if (closestDotC > playerC) {
-                     if (tie == 0) 
-                            playerR++;
-                     else 
-                            playerC++;
-               }
-               else 
-                     playerR++;
+        else {
+               movePlayer(closestDotR,closestDotC);
+               System.out.println("Offensive");
         }
-        else if (closestDotR == playerR) {
-               if (closestDotC < playerC) {
-                     playerC--;
-               }
-               if (closestDotC > playerC) {
-                     playerC++;
-               }
-        }      
  }
+ 
+
+	
+
 
 	
 	private void determineDistances(){
@@ -148,134 +119,101 @@ public class Player {
 	
 	public void changeClosestDotLoc(ArrayList<Dot> dt){
 		//this is removing elements from the original dot list and needs to be changed.
-		ArrayList<Dot> temp = new ArrayList<Dot>();
+		ArrayList<Dot> good = new ArrayList<Dot>();
 		for(Dot d : dt){
-			temp.add(d);
+			if(!(d.getPlayer() == playerValue))
+				good.add(d);
 		}
-		for(Dot d : temp){
-			if(d.getPlayer() == playerValue)
-				temp.remove(d);
-		}
-		if(!temp.isEmpty()){
-			closestDotR = temp.get(0).getRow();
-			closestDotC = temp.get(0).getCol();
-			for(Dot d : temp){
-				if(closestDotR > dotDistance(d.getRow(), d.getCol())){
-					closestDotR = d.getRow();
-					closestDotC = d.getCol();
+		
+		if(!good.isEmpty()){
+			closestDotR = good.get(0).getRow();
+			closestDotC = good.get(0).getCol();
+			while(!good.isEmpty()){
+				if(closestDotR > dotDistance(good.get(0).getRow(), good.get(0).getCol())){
+					closestDotR = good.get(0).getRow();
+					closestDotC = good.get(0).getCol();
 				}
+				for(Dot d : good){
+					if(closestDotR > dotDistance(d.getRow(), d.getCol())){
+						closestDotR = d.getRow();
+						closestDotC = d.getCol();
+					}
+				}
+				good.remove(0);
 			}
-			
+
 		}
 		else{
 			//if the player owns all the dots, then go to the spot (0,0)
 			closestDotR = 0;
 			closestDotC = 0;
-		}
+		}		
 	}
 	
+	public int getClosestDotR(){
+		return closestDotR;
+	}
+	public int getClosestDotC(){
+		return closestDotC;
+	}
 	
-	// *** Offensive Strategy ***
-//	private void makeOffense() {
-//		int num = 0;
-//		for (int r = 0; r < Board.getSize(); r++) {
-//			for (int c = 0; c < Board.getSize(); c++) {
-//				if (board[r][c] == playerValue) {
-//					playerR = r;
-//					playerC = c;
-//				}
-//				if (board[r][c] == 1) {
-//					dotR.add(r);
-//					dotC.add(c);
-//				}
-//			}
-//		}
-//		findClosestDot();
-//	}
-	
-//	private void findClosestDot() {
-//		closestDotR = dotR.poll();
-//		closestDotC = dotC.poll();
-//		closestDotDis = dotDistance(closestDotR,closestDotC);
-//		while (!dotR.isEmpty() || !dotC.isEmpty()) {
-//			if (closestDotDis > dotDistance(dotR.peek(),dotC.peek())) {
-//				closestDotR = dotR.poll();
-//				closestDotC = dotC.poll();
-//				closestDotDis = dotDistance(closestDotR,closestDotC);
-//			}
-//			else{
-//				dotR.poll();
-//				dotC.poll();
-//			}
-//
-//		}
-//	}
-	
-//	private int dotDistance(int r, int c) {
-//		int ans = Math.abs(playerR-r);
-//		ans += Math.abs(playerC-c);
-//		return ans;
-//	}
-	// ***************************************
-	//PLAYERS SHOULD ALSO MOVE IN THE BOARD CLASS
-	
-
-	
-
-	
-	// moves the player using the offensive strategy
-//	public void movePlayerOff() {
-//		int tie = (int) (Math.random()*2);
-//		if (closestDotR < playerR) {
-//			if (closestDotC < playerC) {
-//				if (tie == 0) {
-//					moveUp();
-//				}
-//				else {
-//					moveLeft();
-//				}
-//			}
-//			else if (closestDotC > playerC) {
-//				if (tie == 0) {
-//					moveUp();
-//				}
-//				else {
-//					moveRight();
-//				}
-//			}
-//			else {
-//				moveUp();
-//			}
-//		}
-//		else if (closestDotR > playerR) {
-//			if (closestDotC < playerC) {
-//				if (tie == 0) {
-//					moveDown();
-//				}
-//				else {
-//					moveLeft();
-//				}
-//			}
-//			else if (closestDotC > playerC) {
-//				if (tie == 0) {
-//					moveDown();
-//				}
-//				else {
-//					moveRight();
-//				}
-//			}
-//			else {
-//				moveDown();
-//			}
-//		}
-//		else if (closestDotR == playerR) {
-//			if (closestDotC < playerC) {
-//				moveLeft();
-//			}
-//			if (closestDotC > playerC) {
-//				moveRight();
-//			}
-//		}	
-//	}
-
+    private void movePlayer(int dotR, int dotC) {
+        int tie = (int) (Math.random()*2);
+        System.out.println("dot R and C: " + dotR + " , " + dotC + "........ Player R/C " + playerR + " , " + playerC);
+        if (dotR < playerR) {
+               if (dotC < playerC) {
+                     if (tie == 0) {
+                            playerC--;
+                     }
+                     else {
+                            playerR--;
+                     }
+               }
+               else if (dotC > playerC) {
+                     if (tie == 0) {
+                            playerC--;
+                     }
+                     else {
+                            playerR++;
+                     }
+               }
+               else {
+                     playerR--;
+               }
+        }
+        else if (dotR > playerR) {
+               if (dotC < playerC) {
+                     if (tie == 0) {
+                            playerR++;
+                     }
+                     else {
+                            playerC--;
+                     }
+               }
+               else if (dotC > playerC) {
+                     if (tie == 0) {
+                            playerR++;
+                     }
+                     else {
+                            playerC++;
+                     }
+               }
+               else {
+                     playerR++;
+               }
+        }
+        else if (dotR == playerR) {
+               if (dotC < playerC) {
+                     playerC--;
+               }
+               if (dotC > playerC) {
+                     playerC++;
+               }
+        }      
+ }
 }
+
+
+	
+	
+	

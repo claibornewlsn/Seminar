@@ -43,6 +43,38 @@ public class Board {
 		addDot(row2, col2);
 		dots.add(new Dot(row2, col2, 1));
 		
+		//add dot 3 randomly
+		int row3 = (int) (Math.random() * 5);
+		int col3 = (int) (Math.random() * 5);
+		while ((row3 == row2 && col3 == col2) || (row3 == row && col3 == col)) {
+			row3 = (int) (Math.random() * 5);
+			col3 = (int) (Math.random() * 5);
+		}
+		
+		addDot(row3, col3);
+		dots.add(new Dot(row3, col3, 1));
+		
+//		row3 = (int) (Math.random() * 5);
+//		col3 = (int) (Math.random() * 5);
+//		addDot(row3, col3);
+//		dots.add(new Dot(row3, col3, 1));
+//		
+//		row3 = (int) (Math.random() * 5);
+//		col3 = (int) (Math.random() * 5);
+//		addDot(row3, col3);
+//		dots.add(new Dot(row3, col3, 1));
+//		
+//		row3 = (int) (Math.random() * 5);
+//		col3 = (int) (Math.random() * 5);
+//		addDot(row3, col3);
+//		dots.add(new Dot(row3, col3, 1));
+//		
+//		row3 = (int) (Math.random() * 5);
+//		col3 = (int) (Math.random() * 5);
+//		addDot(row3, col3);
+//		dots.add(new Dot(row3, col3, 1));
+		
+		
 		// add players randomly
 		row = (int) (Math.random() * SIZE);
 		col = (int) (Math.random() * SIZE);
@@ -99,30 +131,29 @@ public class Board {
 	}
 	
 	public void move(){
+		p1.changeClosestDotLoc(dots);
+		p2.changeClosestDotLoc(dots);
 		
-		System.out.println(dots.toString());
+		//System.out.println("P1 " + p1.getClosestDotR() + " , " + p1.getClosestDotC() + " from " + p1.getRow() + " , " + p1.getCol());
+		//System.out.println("P2 " + p2.getClosestDotR() + " , " + p2.getClosestDotC() + " from " + p2.getRow() + " , " + p2.getCol());
 		
-		for(Dot d : dots){
-			if(d.getPlayer() == PLAYER1){
-				p1.changeClosestDotLoc(dots);
-			}
-			else if(d.getPlayer() == PLAYER2){
-				p2.changeClosestDotLoc(dots);
-			}
-		}
+		System.out.println("1: " + p1.getRow() + " , " + p1.getCol());
 		
-		int[] p1Temp = p1.moveOffense(board, SIZE);
-		//returns array in the form [rowValue][colValue}
 		
 		board[p1.getRow()][p1.getCol()] = 0;
-		p1.movePlayerOff();
+		p1.determineOffOrDef(p2);
+		System.out.println("2: " + p1.getRow() + " , " + p1.getCol());
 		board[p1.getRow()][p1.getCol()] = PLAYER1;
 		
 		//need to set the value in board
 		
-		int[] p2Temp = p2.moveOffense(board, SIZE);
+		
 		board[p2.getRow()][p2.getCol()] = 0;
-		p2.movePlayerOff();
+		
+		//something is wrong here^^^^^^^^^^^^^
+		
+		p2.determineOffOrDef(p1);
+		System.out.println("3: " + p1.getRow() + " , " + p1.getCol());
 		board[p2.getRow()][p2.getCol()] = PLAYER2;
 		
 		for(Dot d : dots){
@@ -133,6 +164,8 @@ public class Board {
 				d.setPlayer(PLAYER2);
 			}
 		}
+
+
 		
 	}
 	
@@ -140,6 +173,7 @@ public class Board {
 		for(Dot d : dots){
 			if(board[d.getRow()][d.getCol()] == 0)
 				board[d.getRow()][d.getCol()] = 1;
+			System.out.println("Dot (" + d.getRow() + "," + d.getCol() + ") owned by: " + d.getPlayer());
 		}
 	}
 

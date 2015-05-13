@@ -35,7 +35,7 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 	private boolean isRunning;
 	private JButton next;
 	
-	public GUI(Board board) {
+	public GUI(Board board) { 
 		
 		constructGUI();
 		b = board;
@@ -48,7 +48,9 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 					public void actionPerformed(ActionEvent e){
 						b.move();
 						b.replaceDots();
+						next.setVisible(true);
 						repaint();
+						System.out.println("END OF MOVE \n \n");
 					}
 				}
 				);
@@ -199,7 +201,7 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 		guiFrame.setVisible(true);
 		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guiFrame.setTitle("Diplomacy");
-		guiFrame.setSize(515, 530);
+		guiFrame.setSize((int)(b.getSize() * 51.5),(int)(b.getSize() * 53));
 		guiFrame.setLocationRelativeTo(null);
 		
 
