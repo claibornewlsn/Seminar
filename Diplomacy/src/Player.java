@@ -5,7 +5,12 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Queue;
 
-
+/**
+ * The player class holds all the information for each player and also 
+ * has the strategy for each player (both defensive and offensive)
+ * @author wilsonc
+ *
+ */
 public class Player {
 
 	private int playerR;
@@ -81,6 +86,13 @@ public class Player {
 		return temp;
 	}
 	
+	
+	/**
+	 * This is the method called by the board to move the players.  It determines whether the player
+	 * should attack based on how close it is to a dot it does not own and how close another player is to a 
+	 * dot it does not own.
+	 * @param p
+	 */
 	public void determineOffOrDef(Player p) {
         if (dotDistance(p.closestDotR,p.closestDotC) < p.dotDistance(p.closestDotR,p.closestDotC)) {
                movePlayer(p.closestDotR,p.closestDotC);
@@ -96,7 +108,7 @@ public class Player {
 	
 
 
-	
+  
 	private void determineDistances(){
 		closestDotDis = dotDistance(closestDotR,closestDotC);
 		while (!dotR.isEmpty()){
@@ -111,12 +123,17 @@ public class Player {
 		}
 	}
 	
+	//this is a simple tool used to determine the distance between a player and a dot
+	//Players can only move up/down/left/right so the distance is calculated accordingly
 	private int dotDistance(int r, int c){
 		int ans = Math.abs(playerR-r);
 		ans += Math.abs(playerC-c);
 		return ans;
 	}
 	
+	//every move, the player's closest dot is updated.  A player's closest dot can only
+	//refer to dots it does not already own.  If it owns all dots, it's closest dot is set
+	//at the point (0,0)
 	public void changeClosestDotLoc(ArrayList<Dot> dt){
 		//this is removing elements from the original dot list and needs to be changed.
 		ArrayList<Dot> good = new ArrayList<Dot>();
@@ -157,6 +174,8 @@ public class Player {
 		return closestDotC;
 	}
 	
+	//this method moves the player based on it's location relative to it's closest dot
+	//the "tie" is used to decide weather to move vertically or horizontally when there is a choice
     private void movePlayer(int dotR, int dotC) {
         int tie = (int) (Math.random()*2);
         System.out.println("dot R and C: " + dotR + " , " + dotC + "........ Player R/C " + playerR + " , " + playerC);

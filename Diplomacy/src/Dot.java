@@ -1,4 +1,9 @@
-
+/**
+ * The dot class simply holds information for each dot about it's row, column
+ * and the numerical value assigned to the player who owns it.
+ * @author wilsonc
+ *
+ */
 public class Dot {
 
 	private int row;

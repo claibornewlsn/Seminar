@@ -16,9 +16,8 @@ import java.awt.event.*;
 
 /**
  * @author wilsonc
- * Integers have been changed to colors to make implimentation 
- * of a GUI easier.  White represents a blank space, black is a 
- * dot, and the players are 2 different colors
+ * This class is responsible for creating the board and running the program. 
+ * 
  *
  */
 
@@ -35,6 +34,7 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 	private boolean isRunning;
 	private JButton next;
 	
+	
 	public GUI(Board board) { 
 		
 		constructGUI();
@@ -46,9 +46,10 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 		next.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
+						//the following are the actions performed every time the next buttom is clicked
+						//the board moves all the players, then the dots are replaced.  
 						b.move();
 						b.replaceDots();
-						next.setVisible(true);
 						repaint();
 						System.out.println("END OF MOVE \n \n");
 					}
@@ -81,6 +82,8 @@ public class GUI extends JPanel implements ActionListener, MouseListener, MouseM
 		    start();
 	}
 	
+	
+	//This creates the GUI components 
 	private void constructGUI(){
 		JFrame guiFrame = new JFrame();
 		final JPanel listPanel = new JPanel();

@@ -3,13 +3,19 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-// COLE OTTO IS THE BESTEST
-//strategy and player movement goes here (board)
-//create new class for movement
-//canvas takes the board and creates the color representation, checks if controls are right
-//GUI presents the life canvas (gets run)
+/**
+ * This class, board, acts as the data holding device for all of Diplomacy.  The board
+ * is a 2D array of ints which starts as all 0s.  0 represents a blank space, 1 represents
+ * a dot, and all numbers >=2 represent different players (for example, player 1 is represented by a 2)
+ * The field SIZE is a constant that 
+ * determines the size of the array and therefore the GUI representation of the board
+ * This class also has a field "dots" which is an arrayList containing all of the dots in the board
+ * 
+ * @author wilsonc
+ *
+ */
 public class Board {
-	private static final int SIZE = 10;
+	private static final int SIZE = 15;
 	private final int PLAYER1 = 2;
 	private final int PLAYER2 = 3;
 	private ArrayList<Dot> dots = new ArrayList<Dot>();
@@ -20,6 +26,7 @@ public class Board {
 	
 	private int[][] board = new int[SIZE][SIZE];
 	
+	//constructor for Board, creates the board as all 0s and then adds in 2 players and dots
 	public Board(){
 		for(int c=0; c<board.length; c++){
 			for(int r=0; r<board.length; r++){
@@ -46,6 +53,7 @@ public class Board {
 		//add dot 3 randomly
 		int row3 = (int) (Math.random() * 5);
 		int col3 = (int) (Math.random() * 5);
+		//have to check that the location of this dot is not the same as any other dot....
 		while ((row3 == row2 && col3 == col2) || (row3 == row && col3 == col)) {
 			row3 = (int) (Math.random() * 5);
 			col3 = (int) (Math.random() * 5);
@@ -105,6 +113,7 @@ public class Board {
 			}
 		}
 		
+		//create players 1 and 2
 		p1 = new Player(2, row, col);
 		board[row][col] = PLAYER1;
 
@@ -112,24 +121,33 @@ public class Board {
 		board[row2][col2] = PLAYER2;
 	
 	}
+	
+	//simple accesser  method for retrieving the value at row r and column c
 	public int get (int r, int c){
 		return board[r][c];
 	}
 	
+	//adds a dot to board at board[r][c]
 	private void addDot(int r, int c){
 		board[r][c] = 1;
 		//dots are represented by 1
 	}
+	
+	//returns true if the value at r, c is 1
 	private boolean isDot(int r, int c) {
 		return board[r][c] == 1;
 	}
+	
 	private boolean isPlayer(int r, int c) {
 		return (board[r][c] != 0 && !isDot(r,c));
 	}
+	
 	public int[][] getBoard() {
 		return board;
 	}
 	
+	//the move method is called by the GUI class, the calls to "changeClosestDotLoc" refer to the
+	//player class.  
 	public void move(){
 		p1.changeClosestDotLoc(dots);
 		p2.changeClosestDotLoc(dots);
@@ -140,17 +158,21 @@ public class Board {
 		System.out.println("1: " + p1.getRow() + " , " + p1.getCol());
 		
 		
+		//When moving a player, the location it used to be at is set to 0.  After all the moves have been made,
+		//the arraylist dots is gone through and the dots are added back.  The calls "determineOffOrDef" 
+		//first decide whether an offinsive or devensive strategy is prefereable and then trigger 
+		//calls to actually move the player
 		board[p1.getRow()][p1.getCol()] = 0;
 		p1.determineOffOrDef(p2);
 		System.out.println("2: " + p1.getRow() + " , " + p1.getCol());
 		board[p1.getRow()][p1.getCol()] = PLAYER1;
 		
-		//need to set the value in board
-		
+	
 		
 		board[p2.getRow()][p2.getCol()] = 0;
 		
 		//something is wrong here^^^^^^^^^^^^^
+		//If a player goes out of bounds, the error shows up here.
 		
 		p2.determineOffOrDef(p1);
 		System.out.println("3: " + p1.getRow() + " , " + p1.getCol());
@@ -168,7 +190,9 @@ public class Board {
 
 		
 	}
-	
+
+	//after each move, the dots are replaced to ensure they are not lost.  This is done because
+	//as a player moves, it changes it's previous location to 0
 	public void replaceDots(){
 		for(Dot d : dots){
 			if(board[d.getRow()][d.getCol()] == 0)
